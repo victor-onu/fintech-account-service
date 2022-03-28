@@ -1,0 +1,11 @@
+id;account_type;account_id;account_status;registration_status;available_balance;ledger_balance
+1;WALLET;Road global salmon;INACTIVE;PENDING;25960;56013
+2;BANK;reboot New International;ACTIVE;VERIFIED;80564;1266
+3;WALLET;B2C;BLOCKED;PENDING;22401;53606
+4;BANK;e-commerce system;ACTIVE;PENDING;56024;89671
+5;WALLET;Berkshire;ACTIVE;VERIFIED;52117;98829
+6;BANK;Gorgeous gold;ACTIVE;VERIFIED;50601;25317
+7;BANK;Pants Bedfordshire;ACTIVE;PENDING;37252;42314
+8;WALLET;mobile;BLOCKED;VERIFIED;63058;90153
+9;WALLET;Facilitator Engineer pixel;INACTIVE;PENDING;55250;27794
+10;BANK;Bedfordshire;INACTIVE;PENDING;58267;68801

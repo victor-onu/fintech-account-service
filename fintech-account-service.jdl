@@ -1,0 +1,74 @@
+
+application {
+  config {
+    baseName fintechAccountService
+    applicationType microservice
+    packageName com.victor.fintechaccountservice
+    serviceDiscoveryType no,
+    databaseType sql
+    devDatabaseType mysql
+    prodDatabaseType mysql
+    cacheProvider no
+    buildTool maven
+    skipUserManagement true
+    serverPort 8070
+  }
+  entities *
+  service * with serviceImpl
+  dto * with mapstruct
+  paginate * with pagination
+}
+
+enum Gender {
+  MALE,
+  FEMALE
+}
+
+enum AccountType {
+  WALLET,
+  BANK
+}
+
+enum Status {
+  ACTIVE,
+  INACTIVE,
+  BLOCKED
+}
+
+
+enum RegistrationStatus {
+  PENDING,
+  VERIFIED
+}
+
+
+
+entity FintechAccount {
+  accountType AccountType required
+  accountId String required
+  accountStatus Status
+  registrationStatus RegistrationStatus
+  availableBalance Double
+  ledgerBalance Double
+}
+
+entity AccountOwner {
+  firstName String required
+  lastName String required
+  middleName String
+  email String required
+  password String
+  dateOfBirth LocalDate
+  userReference String required
+  phoneNumber String
+  address String
+  gender Gender
+  status Status
+}
+
+
+
+
+relationship ManyToOne {
+  FintechAccount{accountOwner} to AccountOwner{fintechAccount}
+}

@@ -1,0 +1,55 @@
+{
+  "name": "FintechAccount",
+  "fields": [
+    {
+      "fieldName": "accountType",
+      "fieldType": "AccountType",
+      "fieldValues": "WALLET,BANK",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "accountId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "accountStatus",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,INACTIVE,BLOCKED"
+    },
+    {
+      "fieldName": "registrationStatus",
+      "fieldType": "RegistrationStatus",
+      "fieldValues": "PENDING,VERIFIED"
+    },
+    {
+      "fieldName": "availableBalance",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "ledgerBalance",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "accountOwner",
+      "otherEntityRelationshipName": "fintechAccount",
+      "relationshipName": "accountOwner"
+    }
+  ],
+  "entityTableName": "fintech_account",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["fintechAccountService"],
+  "microserviceName": "fintechAccountService",
+  "clientRootFolder": "fintechAccountService",
+  "databaseType": "sql",
+  "changelogDate": "20220328161002"
+}

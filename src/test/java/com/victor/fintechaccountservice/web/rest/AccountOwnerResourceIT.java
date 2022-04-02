@@ -2,6 +2,7 @@ package com.victor.fintechaccountservice.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -11,6 +12,7 @@ import com.victor.fintechaccountservice.domain.enumeration.Gender;
 import com.victor.fintechaccountservice.domain.enumeration.Status;
 import com.victor.fintechaccountservice.repository.AccountOwnerRepository;
 import com.victor.fintechaccountservice.service.dto.AccountOwnerDTO;
+import com.victor.fintechaccountservice.service.fiegn.NotificationService;
 import com.victor.fintechaccountservice.service.mapper.AccountOwnerMapper;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -20,8 +22,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,8 +48,8 @@ class AccountOwnerResourceIT {
     private static final String DEFAULT_MIDDLE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_MIDDLE_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
-    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+    private static final String DEFAULT_EMAIL = "victor@gmail.com";
+    private static final String UPDATED_EMAIL = "vee@gmail.com";
 
     private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
     private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
@@ -85,6 +89,9 @@ class AccountOwnerResourceIT {
 
     @Autowired
     private MockMvc restAccountOwnerMockMvc;
+
+    @MockBean
+    private NotificationService notificationService;
 
     private AccountOwner accountOwner;
 
@@ -143,6 +150,8 @@ class AccountOwnerResourceIT {
         int databaseSizeBeforeCreate = accountOwnerRepository.findAll().size();
         // Create the AccountOwner
         AccountOwnerDTO accountOwnerDTO = accountOwnerMapper.toDto(accountOwner);
+
+        Mockito.when(notificationService.sendCreateAccountMail(any(AccountOwnerDTO.class))).thenReturn(true);
         restAccountOwnerMockMvc
             .perform(
                 post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(accountOwnerDTO))

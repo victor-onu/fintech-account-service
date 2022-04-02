@@ -36,7 +36,9 @@ public class AccountOwner implements Serializable {
     private String middleName;
 
     @NotNull
-    @Column(name = "email", nullable = false)
+    @Email
+    @Size(min = 5, max = 254)
+    @Column(name = "email", nullable = false, length = 254, unique = true)
     private String email;
 
     @Column(name = "password")
@@ -46,7 +48,7 @@ public class AccountOwner implements Serializable {
     private LocalDate dateOfBirth;
 
     @NotNull
-    @Column(name = "user_reference", nullable = false)
+    @Column(name = "user_reference", nullable = false, unique = true)
     private String userReference;
 
     @Column(name = "phone_number")

@@ -1,10 +1,13 @@
 package com.victor.fintechaccountservice.service.dto;
 
+import com.victor.fintechaccountservice.domain.FintechAccount;
 import com.victor.fintechaccountservice.domain.enumeration.Gender;
 import com.victor.fintechaccountservice.domain.enumeration.Status;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -39,6 +42,16 @@ public class AccountOwnerDTO implements Serializable {
     private Gender gender;
 
     private Status status;
+
+    private Set<FintechAccountDTO> fintechAccounts = new HashSet<>();
+
+    public Set<FintechAccountDTO> getFintechAccounts() {
+        return fintechAccounts;
+    }
+
+    public void setFintechAccounts(Set<FintechAccountDTO> fintechAccounts) {
+        this.fintechAccounts = fintechAccounts;
+    }
 
     public Long getId() {
         return id;

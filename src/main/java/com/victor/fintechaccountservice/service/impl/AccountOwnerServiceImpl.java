@@ -4,6 +4,7 @@ import com.victor.fintechaccountservice.domain.AccountOwner;
 import com.victor.fintechaccountservice.repository.AccountOwnerRepository;
 import com.victor.fintechaccountservice.service.AccountOwnerService;
 import com.victor.fintechaccountservice.service.dto.AccountOwnerDTO;
+import com.victor.fintechaccountservice.service.fiegn.NotificationService;
 import com.victor.fintechaccountservice.service.mapper.AccountOwnerMapper;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -26,9 +27,16 @@ public class AccountOwnerServiceImpl implements AccountOwnerService {
 
     private final AccountOwnerMapper accountOwnerMapper;
 
-    public AccountOwnerServiceImpl(AccountOwnerRepository accountOwnerRepository, AccountOwnerMapper accountOwnerMapper) {
+    private final NotificationService notificationService;
+
+    public AccountOwnerServiceImpl(
+        AccountOwnerRepository accountOwnerRepository,
+        AccountOwnerMapper accountOwnerMapper,
+        NotificationService notificationService
+    ) {
         this.accountOwnerRepository = accountOwnerRepository;
         this.accountOwnerMapper = accountOwnerMapper;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -36,6 +44,7 @@ public class AccountOwnerServiceImpl implements AccountOwnerService {
         log.debug("Request to save AccountOwner : {}", accountOwnerDTO);
         AccountOwner accountOwner = accountOwnerMapper.toEntity(accountOwnerDTO);
         accountOwner = accountOwnerRepository.save(accountOwner);
+        notificationService.sendCreateAccountMail(accountOwnerDTO);
         return accountOwnerMapper.toDto(accountOwner);
     }
 

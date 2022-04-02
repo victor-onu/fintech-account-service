@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AccountOwnerRepository extends JpaRepository<AccountOwner, Long> {}
+public interface AccountOwnerRepository extends JpaRepository<AccountOwner, Long> {
+    boolean existsByEmailOrUserReference(String email, String userRref);
+}

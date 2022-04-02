@@ -62,6 +62,14 @@ public class AccountOwnerResource {
         if (accountOwnerDTO.getId() != null) {
             throw new BadRequestAlertException("A new accountOwner cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        if (accountOwnerRepository.existsByEmailOrUserReference(accountOwnerDTO.getEmail(), accountOwnerDTO.getUserReference())) {
+            throw new BadRequestAlertException("An accountOwner already exists with email or userReference", ENTITY_NAME, "emailexists");
+        }
+
+        if (accountOwnerDTO.getFintechAccounts().size() > 1) {
+            throw new BadRequestAlertException("A new accountOwner cannot have more than one account", ENTITY_NAME, "morethanoneaccount");
+        }
         AccountOwnerDTO result = accountOwnerService.save(accountOwnerDTO);
         return ResponseEntity
             .created(new URI("/api/account-owners/" + result.getId()))

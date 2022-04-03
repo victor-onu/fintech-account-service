@@ -116,10 +116,7 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: https://fintech-registry-service.herokuapp.com/eureka/
-
   instance:
     hostname: fintech-account-service.herokuapp.com
     non-secure-port: 80
-    secure-port: 443
-    non-secure-port-enabled: true
-    secure-port-enabled: false
+

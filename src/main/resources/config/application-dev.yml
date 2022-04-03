@@ -65,7 +65,7 @@ spring:
     name: ACCOUNT-SERVICE
 
 server:
-  port: 8070
+  port: ${PORT:8080}
 
 # ===================================================================
 # JHipster specific properties

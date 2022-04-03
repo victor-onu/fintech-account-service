@@ -65,7 +65,7 @@ spring:
     name: ACCOUNT-SERVICE
 
 server:
-  port: ${PORT:8070}
+  port: 8070
 
 # ===================================================================
 # JHipster specific properties
@@ -110,11 +110,11 @@ jhipster:
 application:
   notificationServiceUrl: http://notification-service/api
 
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: https://fintech-registry-service.herokuapp.com/eureka/
-#  instance:
-#    hostname: fintech-account-service.herokuapp.com
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: https://fintech-registry-service.herokuapp.com/eureka/
+  instance:
+    hostname: fintech-account-service.herokuapp.com
